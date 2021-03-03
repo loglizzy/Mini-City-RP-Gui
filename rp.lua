@@ -2076,35 +2076,18 @@ local function checkscript()
 end
 
 do -- curzinho
-    local money = 1000
-    
     do -- give money
-        local dinheiro = player.leaderstats.Dinheiro
-        local bank = player.Stats.Bank
-        local coins = player.Stats.Coins
+        local enabled
+        local remote = game.ReplicatedStorage.Folder.RewardPizza
         
-        Main:AddButton('Give money', function()
-            dinheiro.Value = dinheiro.Value + money
-            coins.Value = coins.Value + money
-            bank.Value = bank.Value + money
+        game.RunService.RenderStepped:Connect(function()
+            if enabled and checkscript() then
+                remote:FireServer()
+            end
         end)
-    end
-    
-    do -- set money
-        local dinheiro = player.leaderstats.Dinheiro
-        local bank = player.Stats.Bank
-        local coins = player.Stats.Coins
         
-        Main:AddButton('Set money', function()
-            dinheiro.Value = money
-            coins.Value = money
-            bank.Value = money
-        end)
-    end
-    
-    do -- money amount
-        Main:AddTextBox('Money amount', function(v)
-            money = tonumber(v)
+        Main:AddSwitch('Auto Give money', function(v)
+            enabled = v
         end)
     end
 end
