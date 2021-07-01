@@ -2037,15 +2037,17 @@ Main:Show()
 local e = 1000
 Main:AddSlider('Money amount', function(v)
     e=tonumber(v)
-end,{min=1,max=100000})
+end,{min=1,max=1000000})
 
-Main:AddButton('Add money',function()
+Main:AddButton('Set money',function()
     local a = plr.leaderstats.Dinheiro.Value
     local e = e
     if e ~= a then
         if e > a then
             if a < 0 then
                 e=e+a
+            else
+                e=e-a
             end
         elseif e < a then
             e=e-a
