@@ -2045,7 +2045,7 @@ Main:AddButton('Set money',function()
     if e ~= a then
         if e > a then
             if a < 0 then
-                e=e+a
+                e=e+(a*-1)
             else
                 e=e-a
             end
