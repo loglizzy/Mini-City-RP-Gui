@@ -1,7 +1,6 @@
 local workspace = game:GetService("Workspace")
 local repl = game:GetService("ReplicatedStorage")
-
-local player = game.Players.LocalPlayer
+local plr = game:GetService("Players").LocalPlayer
 
 local detectedProtection = newcclosure or protect_function or coroutine.wrap
 
@@ -2035,6 +2034,22 @@ local Misc = Window:AddTab("Misc")
 
 Main:Show()
 
-local e = 0
-Main:AddButton('Add money',function()repl.Dianho.Withdraw:FireServer(e);end)
-Main:AddTextBox('Money amount', function(v)e=tonumber(v);end)
+local e = 1000
+Main:AddSlider('Money amount', function(v)
+    e=tonumber(v)
+end,{min=1,max=100000})
+
+Main:AddButton('Add money',function()
+    local a = plr.leaderstats.Dinheiro.Value
+    local e = e
+    if e ~= a then
+        if e > a then
+            if a < 0 then
+                e=e+a
+            end
+        elseif e < a then
+            e=e-a
+        end
+        repl.Dianho.Withdraw:FireServer(e)
+    end
+end)
